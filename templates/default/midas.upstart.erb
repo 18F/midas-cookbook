@@ -6,9 +6,9 @@ stop on shutdown
 respawn
 respawn limit 10 5
 
-script
-su <%= @app_user %> -c "/bin/bash <<EOT
-cd <%= @working_dir %>
-node app.js --production
-EOT"
-end script
+setuid <%= @app_user %>
+
+chdir <%= @working_dir %>
+
+exec \
+node app.js --production >> <%= @working_dir %>/midas.sys.log 2>&1
