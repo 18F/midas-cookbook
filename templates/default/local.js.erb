@@ -7,9 +7,19 @@ module.exports = {
   port: process.env.PORT || 1337,
   environment: '<%= @app_environment %>',
 
-  adapters: {
+  connections: {
     'default': 'postgresql',
+    memory: {
+      adapter: 'sails-disk',
+      inMemory: true
+    },
+    disk: {
+      adapter: 'sails-disk',
+      filePath: './.tmp/',
+      inMemory: false
+    },
     postgresql: {
+      adapter     : 'sails-postgresql',
       host        : '<%= @db_host %>',
       user        : '<%= @db_user %>',
       password    : '<%= @db_password %>',
