@@ -57,6 +57,12 @@ execute 'client config' do
  cwd "#{node.midas.deploy_dir}/assets/js/backbone/config/"
 end
 
+# make sure we have default i18n config
+execute 'i18n config' do
+  command "cp -n i18next.ex.js i18next.js"
+  cwd "#{node.midas.deploy_dir}/config/"
+end
+
 bash 'server config/settings' do
   code "for file in *.ex.js; do cp -n \"$file\" \"${file/ex./}\"; done"
   cwd "#{node.midas.deploy_dir}/config/settings"
