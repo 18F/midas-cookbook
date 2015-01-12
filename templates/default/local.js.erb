@@ -62,6 +62,17 @@ module.exports = {
     // headerFieldNames: ''
   },
 
-  systemEmail: '<%= @app_system_email %>'
+  systemEmail: '<%= @app_system_email %>',
+
+  newrelicEnabled: <%= @newrelic_enabled %>,
+  newrelic: {
+    // Array of application names, as they will appear in the New Relic interface.
+    app_name : ['<%= @newrelic_appname %>'],
+    // Your New Relic license key.
+    license_key : '<%= @newrelic_licensekey %>',
+    logging : {
+      level : '<%= @newrelic_loglevel %>'
+    }
+  }
 
 };
