@@ -36,7 +36,11 @@ template  "#{node.midas.deploy_dir}/config/local.js" do
     email_user: node.midas.email.username,
     email_password: node.midas.email.password,
     email_port: node.midas.email.port,
-    email_secure: node.midas.email.secure
+    email_secure: node.midas.email.secure,
+    newrelic_enabled: node.midas.newrelic.enabled,
+    newrelic_appname: node.midas.newrelic.appname,
+    newrelic_licensekey: node.midas.newrelic.licensekey,
+    newrelic_loglevel: node.midas.newrelic.loglevel
   )
 end
 

@@ -37,3 +37,8 @@ default.midas.linkedin.secret = 'NOTSET'
 
 default.midas.myusa.client_id = 'NOTSET'
 default.midas.myusa.secret = 'NOTSET'
+
+default.midas.newrelic.enabled = false
+default.midas.newrelic.appname = "midas"
+default.midas.newrelic.loglevel = "info"
+default.midas.newrelic.licensekey = "NOTSET"
