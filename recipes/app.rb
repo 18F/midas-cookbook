@@ -36,7 +36,9 @@ template  "#{node.midas.deploy_dir}/config/local.js" do
     email_user: node.midas.email.username,
     email_password: node.midas.email.password,
     email_port: node.midas.email.port,
-    email_secure: node.midas.email.secure
+    email_secure: node.midas.email.secure,
+    email_cc: node.midas.email.cc,
+    email_bcc: node.midas.email.bcc
   )
 end
 
