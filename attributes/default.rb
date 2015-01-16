@@ -31,6 +31,8 @@ default.midas.email.password = ''
 default.midas.email.hostname = 'smtp.mandrillapp.com'
 default.midas.email.port = 587
 default.midas.email.secure = false
+default.midas.email.cc = ''
+default.midas.email.bcc = ''
 
 default.midas.linkedin.client_id = 'NOTSET'
 default.midas.linkedin.secret = 'NOTSET'
