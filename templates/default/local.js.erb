@@ -48,6 +48,12 @@ module.exports = {
     maxConnections      : 5
   },
 
+
+  // System-wide email notification settings
+  // Set as a comma-separated list of email addresses
+  notificationsCC  : '<%= @email_cc %>',
+  notificationsBCC : '<%= @email_bcc %>',
+
   ses: {
     // AWSAccessKeyID: 'AWSACCESSKEY',
     // AWSSecretKey: 'AWS/Secret/key',
