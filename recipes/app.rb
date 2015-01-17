@@ -57,12 +57,6 @@ execute 'client config' do
  cwd "#{node.midas.deploy_dir}/assets/js/backbone/config/"
 end
 
-# make sure we have default i18n config
-execute 'i18n config' do
-  command "cp -n i18next.ex.js i18next.js"
-  cwd "#{node.midas.deploy_dir}/config/"
-end
-
 bash 'server config/settings' do
   code "for file in *.ex.js; do cp -n \"$file\" \"${file/ex./}\"; done"
   cwd "#{node.midas.deploy_dir}/config/settings"
@@ -73,10 +67,31 @@ file "#{node.midas.nginx_conf_dir}/#{node.midas.nginx_default}" do
   action :delete
 end
 
-link "#{node.midas.nginx_conf_dir}/midas.conf" do
-  to "#{node.midas.deploy_dir}/#{node.midas.nginx_conf_source}"
+file "/etc/ssl/server.key" do
   action :create
-  owner node.midas.user
+  owner  "root"
+  group  "root"
+  mode   "0644"
+  content node['midas']['ssl']['key']
+  notifies :reload, 'service[nginx]', :delayed
+end
+
+file "/etc/ssl/server.crt" do
+  action :create
+  owner  "root"
+  group  "root"
+  mode   "0644"
+  content node['midas']['ssl']['cert']
+  notifies :reload, 'service[nginx]', :delayed
+end
+
+template "#{node.midas.nginx_conf_dir}/midas.conf" do
+  source "midas.conf.erb"
+  variables(
+    cert_path: "/etc/ssl/server.crt",
+    cert_key_path: "/etc/ssl/server.key"
+  )
+  notifies :reload, 'service[nginx]', :delayed
 end
 
 unless node.midas.config_repo.nil?

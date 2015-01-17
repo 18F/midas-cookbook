@@ -1,0 +1,29 @@
+# Redirect all HTTP requests to HTTPS
+server {
+  listen         80;
+  return 301 https://$host$request_uri;
+}
+
+server {
+  listen 443;
+  ssl on;
+  ssl_certificate <%= @cert_path %>;
+  ssl_certificate_key <%= @cert_key_path %>;
+
+  location / {
+    proxy_pass	http://localhost:1337;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_hide_header X-Powered-By;
+  }
+
+  client_max_body_size 10M;
+
+  gzip on;
+  gzip_disable "msie6";
+  gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript text/x-js;
+  gzip_min_length 1000;
+  gzip_vary on;
+
+}
