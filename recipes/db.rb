@@ -22,6 +22,12 @@ postgresql_database_user node['midas']['database']['username'] do
   action :create
 end
 
+postgresql_database node['midas']['database']['name']  do
+  connection db_connection_info
+  sql { ::File.open(node.midas.deploy_dir + '/node_modules/connect-pg-simple/table.sql').read }
+  action :query
+end
+
 postgresql_database_user node['midas']['database']['username'] do
   connection db_connection_info
   database_name node['midas']['database']['name']
