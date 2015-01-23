@@ -22,10 +22,9 @@ postgresql_database_user node['midas']['database']['username'] do
   action :create
 end
 
-postgresql_database node['midas']['database']['name']  do
-  connection db_connection_info
-  sql { ::File.open(node.midas.deploy_dir + '/node_modules/connect-pg-simple/table.sql').read }
-  action :query
+execute 'set up session table' do
+  command "psql node['midas']['database']['name'] < node_modules/connect-pg-simple/table.sql"
+  cwd node.midas.deploy_dir
 end
 
 postgresql_database_user node['midas']['database']['username'] do
