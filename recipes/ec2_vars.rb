@@ -1,5 +1,5 @@
 if node[:ec2]
-  prefix = 'midas/' + node['midas']['environment']
+  prefix = 'midas/' + node['citadel']['environment']
   node.set['midas']['email']['username'] = citadel["#{prefix}/email_username"].strip
   node.set['midas']['email']['password'] = citadel["#{prefix}/email_password"].strip
   node.set['midas']['myusa']['client_id'] = citadel["#{prefix}/myusa_client_id"].strip
