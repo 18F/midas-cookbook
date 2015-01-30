@@ -37,3 +37,6 @@ default.midas.linkedin.secret = 'NOTSET'
 
 default.midas.myusa.client_id = 'NOTSET'
 default.midas.myusa.secret = 'NOTSET'
+
+default.midas.task_state = 'draft'
+default.midas.draft_admin_only = false
