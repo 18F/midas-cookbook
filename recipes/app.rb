@@ -42,7 +42,9 @@ template  "#{node.midas.deploy_dir}/config/local.js" do
     newrelic_enabled: node.midas.newrelic.enabled,
     newrelic_appname: node.midas.newrelic.appname,
     newrelic_licensekey: node.midas.newrelic.licensekey,
-    newrelic_loglevel: node.midas.newrelic.loglevel
+    newrelic_loglevel: node.midas.newrelic.loglevel,
+    task_state: node.midas.task_state,
+    draft_admin_only: node.midas.draft_admin_only
   )
 end
 
