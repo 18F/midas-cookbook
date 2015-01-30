@@ -6,4 +6,5 @@ if node[:ec2]
   node.set['midas']['myusa']['secret'] = citadel["#{prefix}/myusa_secret"].strip
   node.set['midas']['linkedin']['client_id'] = citadel["#{prefix}/linkedin_client_id"].strip
   node.set['midas']['linkedin']['secret'] = citadel["#{prefix}/linkedin_secret"].strip
+  node.set['midas']['draft_admin_only'] = citadel["#{prefix}/draft_admin_only"].strip
 end
