@@ -50,4 +50,3 @@ default.midas.newrelic.loglevel = "info"
 default.midas.newrelic.licensekey = "NOTSET"
 default.midas.task_state = 'draft'
 default.midas.draft_admin_only = false
->>>>>>> Add settings for drafts
