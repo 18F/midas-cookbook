@@ -117,6 +117,12 @@ execute 'run make init' do
   cwd node.midas.deploy_dir
   creates "/tmp/midas_init"
   user node.midas.user
+  environment(
+    'PGHOST' => node.midas.database.hostname,
+    'PGUSER' => node.midas.database.username,
+    'PGPASSWORD' => node.midas.database.password,
+    'PGDATABASE' => node.midas.database.name
+  )
   only_if "psql -U #{node.midas.database.username} -c \"select * from pg_tables where schemaname='midas'\" | grep -c \"(0 rows)\""
 end
 
@@ -124,6 +130,12 @@ execute 'migrate database' do
   command "make migrate"
   cwd node.midas.deploy_dir
   user node.midas.user
+  environment(
+    'PGHOST' => node.midas.database.hostname,
+    'PGUSER' => node.midas.database.username,
+    'PGPASSWORD' => node.midas.database.password,
+    'PGDATABASE' => node.midas.database.name
+  )
 end
 
 template "/etc/init/midas.conf" do
