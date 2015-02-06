@@ -44,7 +44,7 @@ template  "#{node.midas.deploy_dir}/config/local.js" do
     newrelic_licensekey: node.midas.newrelic.licensekey,
     newrelic_loglevel: node.midas.newrelic.loglevel,
     task_state: node.midas.task_state,
-    draft_admin_only: node.midas.draft_admin_only
+    draft_admin_only: node.midas.draft_admin_only,
     app_host: node.midas.app_host,
     linkedin_client_id: node.midas.linkedin.client_id,
     linkedin_client_secret: node.midas.linkedin.secret,
