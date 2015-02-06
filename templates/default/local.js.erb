@@ -1,6 +1,10 @@
-var fs = require('fs');
+var fs = require('fs'),
+    pgSession = require('connect-pg-simple'),
+    express = require('sails/node_modules/express'),
+    pg = require('sails-postgresql/node_modules/pg'),
+    local;
 
-module.exports = {
+local = {
   systemName: '<%= @app_id %>',
   httpProtocol: 'https',
   hostName: '<%= @app_host %>',
@@ -117,3 +121,13 @@ module.exports = {
   }
 
 };
+
+// Use main postgres database for sessions
+local.session = {
+  store: new (pgSession(express.session))({
+    conString: local.connections.postgresql,
+    pg: pg
+  })
+};
+
+module.exports = local;
