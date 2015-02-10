@@ -44,31 +44,13 @@ template  "#{node.midas.deploy_dir}/config/local.js" do
     newrelic_licensekey: node.midas.newrelic.licensekey,
     newrelic_loglevel: node.midas.newrelic.loglevel,
     task_state: node.midas.task_state,
-    draft_admin_only: node.midas.draft_admin_only
-  )
-end
-
-template  "#{node.midas.deploy_dir}/config/settings/auth.js" do
-  source "auth.js.erb"
-  variables(
+    draft_admin_only: node.midas.draft_admin_only,
     app_host: node.midas.app_host,
     linkedin_client_id: node.midas.linkedin.client_id,
     linkedin_client_secret: node.midas.linkedin.secret,
     myusa_client_id: node.midas.myusa.client_id,
     myusa_client_secret: node.midas.myusa.secret
   )
-end
-
-# client config
-execute 'client config' do
- command "cp -n login.ex.json login.json"
- cwd "#{node.midas.deploy_dir}/assets/js/backbone/config/"
-end
-
-bash 'server config/settings' do
-  code "for file in *.ex.js; do cp -n \"$file\" \"${file/ex./}\"; done"
-  cwd "#{node.midas.deploy_dir}/config/settings"
-  user node.midas.user
 end
 
 file "#{node.midas.nginx_conf_dir}/#{node.midas.nginx_default}" do
@@ -135,7 +117,25 @@ execute 'run make init' do
   cwd node.midas.deploy_dir
   creates "/tmp/midas_init"
   user node.midas.user
+  environment(
+    'PGHOST' => node.midas.database.hostname,
+    'PGUSER' => node.midas.database.username,
+    'PGPASSWORD' => node.midas.database.password,
+    'PGDATABASE' => node.midas.database.name
+  )
   only_if "psql -U #{node.midas.database.username} -c \"select * from pg_tables where schemaname='midas'\" | grep -c \"(0 rows)\""
+end
+
+execute 'migrate database' do
+  command "make migrate"
+  cwd node.midas.deploy_dir
+  user node.midas.user
+  environment(
+    'PGHOST' => node.midas.database.hostname,
+    'PGUSER' => node.midas.database.username,
+    'PGPASSWORD' => node.midas.database.password,
+    'PGDATABASE' => node.midas.database.name
+  )
 end
 
 template "/etc/init/midas.conf" do
