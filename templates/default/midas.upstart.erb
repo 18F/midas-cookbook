@@ -6,9 +6,13 @@ stop on shutdown
 respawn
 respawn limit 10 5
 
+env NODE_ENV=<%= @app_environment %>
+env NEW_RELIC_APP_NAME=<%= @newrelic_appname %>
+env NEW_RELIC_LICENSE_KEY=<%= @newrelic_licensekey %>
+
 setuid <%= @app_user %>
 
 chdir <%= @working_dir %>
 
 exec \
-node app.js --production >> <%= @working_dir %>/midas.sys.log 2>&1
+node app.js >> <%= @working_dir %>/midas.sys.log 2>&1
