@@ -26,7 +26,6 @@ template  "#{node.midas.deploy_dir}/config/local.js" do
   variables(
     app_id: node.midas.app_id,
     app_host: node.midas.app_host,
-    app_environment: node.midas.environment,
     db_host: node.midas.database.hostname,
     db_user: node.midas.database.username,
     db_password: node.midas.database.password,
@@ -139,6 +138,7 @@ template "/etc/init/midas.conf" do
   variables(
     working_dir: node.midas.deploy_dir,
     app_user: node.midas.user,
+    app_environment: node.midas.environment,
     newrelic_appname: node.midas.newrelic.appname,
     newrelic_licensekey: node.midas.newrelic.licensekey
   )
