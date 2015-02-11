@@ -14,4 +14,4 @@ setuid <%= @app_user %>
 chdir <%= @working_dir %>
 
 exec \
-node app.js --production >> <%= @working_dir %>/midas.sys.log 2>&1
+node app.js >> <%= @working_dir %>/midas.sys.log 2>&1
