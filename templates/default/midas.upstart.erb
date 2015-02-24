@@ -9,6 +9,9 @@ respawn limit 10 5
 env NODE_ENV=<%= @app_environment %>
 env NEW_RELIC_APP_NAME=<%= @newrelic_appname %>
 env NEW_RELIC_LICENSE_KEY=<%= @newrelic_licensekey %>
+env MYUSA_CLIENT_ID=<%= @myusa_client_id %>
+env MYUSA_CLIENT_SECRET=<%= @myusa_client_secret %>
+env MYUSA_CALLBACK_URL="https://<%= @app_host %>/api/auth/callback/myusa"
 
 setuid <%= @app_user %>
 

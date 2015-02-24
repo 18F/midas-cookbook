@@ -42,9 +42,7 @@ template  "#{node.midas.deploy_dir}/config/local.js" do
     draft_admin_only: node.midas.draft_admin_only,
     app_host: node.midas.app_host,
     linkedin_client_id: node.midas.linkedin.client_id,
-    linkedin_client_secret: node.midas.linkedin.secret,
-    myusa_client_id: node.midas.myusa.client_id,
-    myusa_client_secret: node.midas.myusa.secret
+    linkedin_client_secret: node.midas.linkedin.secret
   )
 end
 
@@ -140,7 +138,10 @@ template "/etc/init/midas.conf" do
     app_user: node.midas.user,
     app_environment: node.midas.environment,
     newrelic_appname: node.midas.newrelic.appname,
-    newrelic_licensekey: node.midas.newrelic.licensekey
+    newrelic_licensekey: node.midas.newrelic.licensekey,
+    myusa_client_id: node.midas.myusa.client_id,
+    myusa_client_secret: node.midas.myusa.secret,
+    app_host: node.midas.app_host
   )
 end
 
