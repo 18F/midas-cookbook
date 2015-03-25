@@ -71,6 +71,7 @@ end
 template "#{node.midas.nginx_conf_dir}/midas.conf" do
   source "midas.conf.erb"
   variables(
+    app_host: node.midas.app_host,
     cert_path: "/etc/ssl/server.crt",
     cert_key_path: "/etc/ssl/server.key"
   )
