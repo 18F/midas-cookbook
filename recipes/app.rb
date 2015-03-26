@@ -138,6 +138,8 @@ template "/etc/init/midas.conf" do
     newrelic_licensekey: node.midas.newrelic.licensekey,
     myusa_client_id: node.midas.myusa.client_id,
     myusa_client_secret: node.midas.myusa.secret,
+    linkedin_client_id: node.midas.linkedin.client_id,
+    linkedin_client_secret: node.midas.linkedin.secret,
     app_host: node.midas.app_host
   )
 end
