@@ -88,25 +88,34 @@ unless node.midas.config_repo.nil?
     group node.midas.group
     action :sync
   end
-
-  log "make import #{node.midas.config_dir}/#{node.midas.config_name}"
-
-  execute 'run make import' do
-    command  "make import DIR=#{node.midas.config_dir}/#{node.midas.config_name}"
+  log "npm run import #{node.midas.config_dir}/#{node.midas.config_name}"
+  execute 'run npm run import' do
+    command  "npm run import --midas:dir=#{node.midas.config_dir}/#{node.midas.config_name}"
     cwd node.midas.deploy_dir
     user node.midas.user
   end
-
 end
 
 execute 'build assets' do
-  command "make build"
+  command "npm run build"
   cwd node.midas.deploy_dir
   user node.midas.user
 end
 
-execute 'run make init' do
-  command "make init && touch /tmp/midas_init"
+execute 'migrate database' do
+  command "npm run migrate"
+  cwd node.midas.deploy_dir
+  user node.midas.user
+  environment(
+    'PGHOST' => node.midas.database.hostname,
+    'PGUSER' => node.midas.database.username,
+    'PGPASSWORD' => node.midas.database.password,
+    'PGDATABASE' => node.midas.database.name
+  )
+end
+
+execute 'run npm run init' do
+  command "npm run init && touch /tmp/midas_init"
   cwd node.midas.deploy_dir
   creates "/tmp/midas_init"
   user node.midas.user
@@ -117,18 +126,6 @@ execute 'run make init' do
     'PGDATABASE' => node.midas.database.name
   )
   only_if "psql -U #{node.midas.database.username} -c \"select * from pg_tables where schemaname='midas'\" | grep -c \"(0 rows)\""
-end
-
-execute 'migrate database' do
-  command "make migrate"
-  cwd node.midas.deploy_dir
-  user node.midas.user
-  environment(
-    'PGHOST' => node.midas.database.hostname,
-    'PGUSER' => node.midas.database.username,
-    'PGPASSWORD' => node.midas.database.password,
-    'PGDATABASE' => node.midas.database.name
-  )
 end
 
 template "/etc/init/midas.conf" do
