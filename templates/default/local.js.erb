@@ -8,6 +8,14 @@ module.exports = {
   hostName: '<%= @app_host %>',
   port: process.env.PORT || 1337,
 
+  // Use secure sessions
+  session: {
+    proxy: true,
+    cookie: {
+      secure: true
+    }
+  },
+
   connections: {
     'default': 'postgresql',
     memory: {
