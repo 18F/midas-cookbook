@@ -6,6 +6,7 @@ server {
 
 server {
   listen 443;
+  server_name <%= @host_name %>;
   ssl on;
   ssl_certificate <%= @cert_path %>;
   ssl_certificate_key <%= @cert_key_path %>;
@@ -42,4 +43,9 @@ server {
   gzip_min_length 1000;
   gzip_vary on;
 
+}
+
+server {
+  listen 443;
+  rewrite ^ $scheme://<%= @host_name %>$request_uri permanent;
 }
