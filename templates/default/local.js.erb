@@ -76,6 +76,26 @@ module.exports = {
     // headerFieldNames: ''
   },
 
-  systemEmail: '<%= @app_system_email %>'
+  systemEmail: '<%= @app_system_email %>',
+  
+  /**
+   * Store files on AWS S3
+   * Useful for multi-server hosting environments
+   *
+   * Set fileStore.service = 's3'
+   *
+   * Set credentials according `aws-sdk` instructions:
+   * http://v.gd/aws_sdk_creds
+   *
+   * @bucket: s3 bucket to use
+   * @prefix: prefix string / virtual path within bucket
+   */
+  fileStore: {
+    service: 's3',
+    s3: {
+      bucket: 'midas-assets',
+      prefix: '<%= @app_host %>/uploads'
+    }
+  }
 
 };
