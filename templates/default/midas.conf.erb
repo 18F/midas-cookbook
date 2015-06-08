@@ -5,6 +5,15 @@ server {
 }
 
 server {
+
+  ##
+  # Security 
+  # from 18F baseline: https://github.com/fisma-ready/nginx/blob/master/nginx.conf#L34-L36
+  ##
+  add_header X-Frame-Options DENY;
+  add_header X-Content-Type-Options nosniff;
+  add_header X-XSS-Protection "1; mode=block";
+
   listen 443;
   ssl on;
   ssl_certificate <%= @cert_path %>;
