@@ -96,6 +96,8 @@ module.exports = {
       bucket: 'midas-assets',
       prefix: '<%= @app_host %>/uploads'
     }
-  }
+  },
+  
+  validateDomains: ('<%= @app_host %>' === 'midas-dev.18f.us') ? false : true
 
 };
