@@ -77,7 +77,7 @@ module.exports = {
   },
 
   systemEmail: '<%= @app_system_email %>',
-  
+
   /**
    * Store files on AWS S3
    * Useful for multi-server hosting environments
@@ -98,6 +98,7 @@ module.exports = {
     }
   },
   
-  validateDomains: ('<%= @app_host %>' === 'midas-dev.18f.us') ? false : true
-
+  validateDomains: ('<%= @app_host %>' === 'midas-dev.18f.us') ? false : true,
+  requireAgency: ('<%= @app_host %>' === 'midas-dev.18f.us') ? false : true,
+  requireLocation: ('<%= @app_host %>' === 'midas-dev.18f.us') ? false : true
 };
