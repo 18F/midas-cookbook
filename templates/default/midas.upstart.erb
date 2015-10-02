@@ -19,6 +19,9 @@ env LINKEDIN_CLIENT_ID=<%= @linkedin_client_id %>
 env LINKEDIN_CLIENT_SECRET=<%= @linkedin_client_secret %>
 env LINKEDIN_CALLBACK_URL="https://<%= @app_host %>/api/auth/callback/linkedin"
 
+env CRON_TOKEN=w1etrlewroubrlaprlamiefr
+env SURVEY_LINK=https://www.surveymonkey.com/s/openoppsfy15
+
 setuid <%= @app_user %>
 
 chdir <%= @working_dir %>
